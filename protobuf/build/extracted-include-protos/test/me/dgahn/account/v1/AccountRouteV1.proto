@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package me.dgahn.account.v1;
+
+import "me/dgahn/account/v1/SignUpV1.proto";
+
+service AccountRouter {
+  rpc signUpV1(SignUpRequestV1) returns (SignUpResponseV1) { }
+}
