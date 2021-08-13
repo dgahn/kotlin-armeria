@@ -13,7 +13,7 @@ private val logger = KotlinLogging.logger {  }
 
 class AccountRouteServiceTest : FunSpec({
 
-    val service = AccountRouteService()
+    val service = AccountGrpcService()
 
     afterEach {
         File("sample.jpg").delete()

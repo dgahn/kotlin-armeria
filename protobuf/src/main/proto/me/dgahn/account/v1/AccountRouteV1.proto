@@ -4,9 +4,11 @@ package me.dgahn.account.v1;
 
 import "me/dgahn/account/v1/SignUpV1.proto";
 import "me/dgahn/account/v1/GetProfileStreamV1.proto";
+import "me/dgahn/account/v1/GetAccountAllV1.proto";
 import "google/protobuf/empty.proto";
 
 service AccountRouter {
   rpc signUpV1(SignUpRequestV1) returns (SignUpResponseV1) { }
   rpc getProfileStream(google.protobuf.Empty) returns (stream GetProfileStreamResponseV1) {}
+  rpc getAccountAll(google.protobuf.Empty) returns (GetAccountAllResponseV1) {}
 }

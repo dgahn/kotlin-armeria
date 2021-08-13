@@ -49,4 +49,6 @@ object AccountService {
             .build()
     )
 
+    fun getAccountAll(): List<Account> = (1..100).map { Account(id = "test_$it", password = "123", name = "test_$it") }
+
 }

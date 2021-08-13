@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package me.dgahn.account.v1;
+
+option java_multiple_files = true;
+option java_outer_classname = "GetAccountAllV1Proto";
+
+message GetAccountAllResponseV1 {
+  repeated Account accounts = 1;
+}
+
+message Account {
+  string id = 1;
+  string name = 2;
+  AccountRole role = 3;
+}
+
+enum AccountRole {
+  ADMIN = 0;
+  MEMBER = 1;
+}
+

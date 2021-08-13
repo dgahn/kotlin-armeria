@@ -5,15 +5,18 @@ import com.linecorp.armeria.server.Server
 import com.linecorp.armeria.server.ServerBuilder
 import com.linecorp.armeria.server.docs.DocService
 import com.linecorp.armeria.server.grpc.GrpcService
-import me.dgahn.account.AccountRouteService
+import me.dgahn.account.AccountGrpcService
+import me.dgahn.account.AccountHttpService
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger { }
 
 fun main() {
-    val server = newServer()
-    server.startServer()
+    newServerAndStart()
 }
+
+internal fun newServerAndStart(httpPort: Int = 8080, httpsPort: Int = 8433) = newServer(httpPort, httpsPort)
+    .startServer()
 
 private fun Server.startServer() {
     Runtime.getRuntime().addShutdownHook(Thread {
@@ -30,6 +33,7 @@ private fun Server.startServer() {
 private fun newServer(httpPort: Int = 8080, httpsPort: Int = 8433): Server = Server.builder()
     .setHttp(httpPort, httpsPort)
     .setGrpcService()
+    .setHttpService()
     .build()
 
 private fun ServerBuilder.setHttp(httpPort: Int, httpsPort: Int) = this.apply {
@@ -45,8 +49,12 @@ private fun ServerBuilder.setGrpcService() = this.apply {
     serviceUnder("/docs", DocService.builder().build())
 }
 
+private fun ServerBuilder.setHttpService() = this.apply {
+    annotatedService(AccountHttpService())
+}
+
 private fun createGrpcService(): GrpcService = GrpcService.builder()
-    .addService(AccountRouteService())
+    .addService(AccountGrpcService())
     .supportedSerializationFormats(GrpcSerializationFormats.values())
     .enableUnframedRequests(true)
     .build()
