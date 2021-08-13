@@ -211,6 +211,6 @@ $RECYCLE.BIN/
 
 buildSrc/build
 !/gradle/wrapper/gradle-wrapper.jar
-/common-entity/build/
+/protobuf/build
 /account/build/
 /app/build/
